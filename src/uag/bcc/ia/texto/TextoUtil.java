@@ -6,14 +6,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe responsável por modelar, obter, indetificar, manipular e prover Texto.
+ * @author Ramon Santos
+ * @author Arnaldo Sales
+ * @author Wagner Souza
+ */
 public class TextoUtil {
 
+	//Instância única da classe
     private static TextoUtil instanceTextoUtil = null;
 
     private TextoUtil() {
 
     }
-
+    
+	/**
+	 * Recupera a instância deste classe
+	 * @return Instância da classe
+	 */
     public static TextoUtil getInstanceTextoUtil() {
 
         if (instanceTextoUtil == null) {
@@ -26,6 +37,11 @@ public class TextoUtil {
 
     }
 
+    /**
+     * Lê um arquivo de texto e retorna uma String com seu conteúdo
+     * @param urlArquivo
+     * @return Texto do arquivo
+     */
     public String lerArquivoTexto(String urlArquivo) {
 
         String stringResult = "";
@@ -101,38 +117,6 @@ public class TextoUtil {
 
     }
 
-    //Errado--
-    private String[] retirarFraseTexto(String texto, char tipo) {
-
-        String[] frasesR = texto.split(tipo + "");
-
-        for (int i = 0; i < frasesR.length; i++) {
-
-            frasesR[i] = frasesR[i] + tipo;
-
-            if (frasesR[i].indexOf(" ") == 0) {
-
-                frasesR[i] = frasesR[i].substring(1, frasesR[i].length());
-
-            }
-
-        }
-
-        if (!(texto.endsWith(tipo + ""))) {
-
-            int index = frasesR[frasesR.length - 1].lastIndexOf(tipo + "");
-            frasesR[frasesR.length - 1] = frasesR[frasesR.length - 1].substring(0, (index - 1));
-
-        }
-        return frasesR;
-    }
-
-    private List<String> quebrarTextoEmFrases(String texto) {
-
-        return null;
-
-    }
-
     public List<String> eliminarPalavrasRepetidas(List<String> listaPalavras) {
 
         List<String> listaR = new ArrayList<String>();
@@ -174,5 +158,37 @@ public class TextoUtil {
         } else {
             return false;
         }
+    }
+    
+    //Errado--
+    private String[] retirarFraseTexto(String texto, char tipo) {
+
+        String[] frasesR = texto.split(tipo + "");
+
+        for (int i = 0; i < frasesR.length; i++) {
+
+            frasesR[i] = frasesR[i] + tipo;
+
+            if (frasesR[i].indexOf(" ") == 0) {
+
+                frasesR[i] = frasesR[i].substring(1, frasesR[i].length());
+
+            }
+
+        }
+
+        if (!(texto.endsWith(tipo + ""))) {
+
+            int index = frasesR[frasesR.length - 1].lastIndexOf(tipo + "");
+            frasesR[frasesR.length - 1] = frasesR[frasesR.length - 1].substring(0, (index - 1));
+
+        }
+        return frasesR;
+    }
+
+    private List<String> quebrarTextoEmFrases(String texto) {
+
+        return null;
+
     }
 }

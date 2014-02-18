@@ -2,65 +2,120 @@ package uag.bcc.ia.texto;
 
 import uag.bcc.ia.exception.FraseMalFormuladaException;
 
+/**
+ * Classe responsável por modelar, indetificar, manipular e prover frases.
+ * @author Ramon Santos
+ * @author Arnaldo Sales
+ * @author Wagner Souza
+ */
 public class FraseUtil {
 
-    private int getTipoFrase(String frase) {
+	// Constantes referêntes ao tipo de frase
+	private static final int TIPO_EXCLAMACAO = 0;
+	private static final int TIPO_NORMAL = 1;
+	private static final int TIPO_PERGUNTA = 2;
 
-        char[] cadeiaFrase = frase.toCharArray();
+	//Instancia única da classe
+	private static FraseUtil instanceFraseUtil = null;
+	
+	private FraseUtil(){
+		
+	}
+	
+	/**
+	 * Recupera a instância deste classe
+	 * @return Instância da classe
+	 */
+	public static FraseUtil getInstanceFraseUtil(){
+		
+		if(instanceFraseUtil == null){
+			
+			instanceFraseUtil = new FraseUtil();
+		}
+		
+		return instanceFraseUtil;
+	}
+	
+	/**
+	 * Verifica qual o tipo de frase baseado no sinal(ponto) final.
+	 * 
+	 * @param frase
+	 *            Frase a ser analizada.
+	 * @return Constante inteira representando o tipo de frase ou (-1) caso a
+	 *         frase em questão seja inválida.
+	 */
+	private int getTipoFrase(String frase) {
 
-        int ultimaPosicao = cadeiaFrase.length - 1;
+		// Quebra a frase em um array de caracter
+		char[] cadeiaFrase = frase.toCharArray();
 
-        int penultimaPosicao = ultimaPosicao - 1;
+		int ultimaPosicao = cadeiaFrase.length - 1;
 
-        if (cadeiaFrase[ultimaPosicao] == '!') {
+		int penultimaPosicao = ultimaPosicao - 1;
 
-            return 0;
+		/*
+		 * Testa se o último caracter da frase é um sinal válido, caso não
+		 * encontre um sinal válido, a comparação é repassada para o penúltimo
+		 * caracter
+		 */
+		if (cadeiaFrase[ultimaPosicao] == '!') {
 
-        } else if (cadeiaFrase[ultimaPosicao] == '.') {
+			return TIPO_EXCLAMACAO;
 
-            return 1;
+		} else if (cadeiaFrase[ultimaPosicao] == '.') {
 
-        } else if (cadeiaFrase[ultimaPosicao] == '?') {
+			return TIPO_NORMAL;
 
-            return 2;
+		} else if (cadeiaFrase[ultimaPosicao] == '?') {
 
-        } else if (cadeiaFrase[penultimaPosicao] == '!') {
+			return TIPO_PERGUNTA;
 
-            return 0;
+		} else if (cadeiaFrase[penultimaPosicao] == '!') {
 
-        } else if (cadeiaFrase[penultimaPosicao] == '.') {
+			return TIPO_EXCLAMACAO;
 
-            return 1;
+		} else if (cadeiaFrase[penultimaPosicao] == '.') {
 
-        } else if (cadeiaFrase[penultimaPosicao] == '?') {
+			return TIPO_NORMAL;
 
-            return 2;
+		} else if (cadeiaFrase[penultimaPosicao] == '?') {
 
-        } else {
+			return TIPO_PERGUNTA;
 
-            return -1;
+		} else {
 
-        }
+			return -1;
 
-    }
+		}
 
-    public boolean isPergunta(String frase) throws FraseMalFormuladaException {
+	}
 
-        int tipoFrase = getTipoFrase(frase);
+	/**
+	 * Verifica se determinado frase é do tipo pergunta.
+	 * 
+	 * @param frase
+	 *            Frase a ser analizada
+	 * @return resposta - true caso a frase seja uma pergunta ou false caso
+	 *         contrário
+	 * @throws FraseMalFormuladaException
+	 */
+	public boolean isPergunta(String frase) throws FraseMalFormuladaException {
 
-        if (tipoFrase == 0 || tipoFrase == 1) {
+		int tipoFrase = getTipoFrase(frase);
 
-            return false;
+		if (tipoFrase == 0 || tipoFrase == 1) {
 
-        } else if (tipoFrase == 2) {
+			return false;
 
-            return true;
+		} else if (tipoFrase == 2) {
 
-        } else {
+			return true;
 
-            throw new FraseMalFormuladaException("Frase mal formulada!");
-        }
+		} else {
 
-    }
-   
+			throw new FraseMalFormuladaException("Frase mal formulada!");
+		}
+
+	}
+
 }
