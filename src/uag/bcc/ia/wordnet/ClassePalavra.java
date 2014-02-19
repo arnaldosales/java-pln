@@ -7,6 +7,12 @@ import edu.mit.jwi.item.IWord;
 import edu.mit.jwi.item.IWordID;
 import edu.mit.jwi.item.POS;
 
+/**
+ * 
+ * @author Ramon Santos
+ * @author Wagner Souza
+ * @author Isabelle Ferreira
+ */
 public class ClassePalavra {
 
     /**

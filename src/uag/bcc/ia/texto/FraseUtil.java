@@ -4,6 +4,7 @@ import uag.bcc.ia.exception.FraseMalFormuladaException;
 
 /**
  * Classe responsável por modelar, indetificar, manipular e prover frases.
+ * 
  * @author Ramon Santos
  * @author Arnaldo Sales
  * @author Wagner Souza
@@ -15,27 +16,28 @@ public class FraseUtil {
 	private static final int TIPO_NORMAL = 1;
 	private static final int TIPO_PERGUNTA = 2;
 
-	//Instancia única da classe
+	// Instancia única da classe
 	private static FraseUtil instanceFraseUtil = null;
-	
-	private FraseUtil(){
-		
+
+	private FraseUtil() {
+
 	}
-	
+
 	/**
 	 * Recupera a instância deste classe
+	 * 
 	 * @return Instância da classe
 	 */
-	public static FraseUtil getInstanceFraseUtil(){
-		
-		if(instanceFraseUtil == null){
-			
+	public static FraseUtil getInstanceFraseUtil() {
+
+		if (instanceFraseUtil == null) {
+
 			instanceFraseUtil = new FraseUtil();
 		}
-		
+
 		return instanceFraseUtil;
 	}
-	
+
 	/**
 	 * Verifica qual o tipo de frase baseado no sinal(ponto) final.
 	 * 

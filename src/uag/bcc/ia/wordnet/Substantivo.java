@@ -1,53 +1,59 @@
 package uag.bcc.ia.wordnet;
 
+/**
+ * 
+ * @author Ramon Santos
+ * @author Wagner Souza
+ * @author Isabelle Ferreira
+ */
 public class Substantivo extends ClassePalavra {
 
-    private static Substantivo instanceSubstantivo = null;
+	private static Substantivo instanceSubstantivo = null;
 
-    private Substantivo() {
+	private Substantivo() {
 
-    }
+	}
 
-    public static Substantivo getInstanceSubstantivo() {
+	public static Substantivo getInstanceSubstantivo() {
 
-        if (instanceSubstantivo == null) {
+		if (instanceSubstantivo == null) {
 
-            instanceSubstantivo = new Substantivo();
+			instanceSubstantivo = new Substantivo();
 
-        }
+		}
 
-        return instanceSubstantivo;
-    }
+		return instanceSubstantivo;
+	}
 
-    public String getDefinicao(String lemma) {
+	public String getDefinicao(String lemma) {
 
-        String definicaoR = this.getDefinicaoGeral(lemma, 1);
+		String definicaoR = this.getDefinicaoGeral(lemma, 1);
 
-        definicaoR = this.retirarExemplosResposta(definicaoR);
-        
-        return definicaoR;
+		definicaoR = this.retirarExemplosResposta(definicaoR);
 
-    }
+		return definicaoR;
 
-    private String retirarExemplosResposta(String frase) {
+	}
 
-        String fraseR = frase;
-        int indexA = fraseR.indexOf(";");
-        int indexB = fraseR.indexOf(":");
+	private String retirarExemplosResposta(String frase) {
 
-        if (indexA != -1) {
+		String fraseR = frase;
+		int indexA = fraseR.indexOf(";");
+		int indexB = fraseR.indexOf(":");
 
-            fraseR = fraseR.substring(0, indexA);
+		if (indexA != -1) {
 
-        }
-        if (indexB != -1) {
+			fraseR = fraseR.substring(0, indexA);
 
-            fraseR = fraseR.substring(0, indexB);
+		}
+		if (indexB != -1) {
 
-        }
+			fraseR = fraseR.substring(0, indexB);
 
-        return fraseR;
+		}
 
-    }
-    
+		return fraseR;
+
+	}
+
 }

@@ -1,137 +1,131 @@
 package uag.bcc.ia.wordnet.tipo;
 
 import edu.mit.jwi.item.IIndexWord;
-import edu.mit.jwi.item.IPointer;
 import edu.mit.jwi.item.ISynset;
 import edu.mit.jwi.item.IWord;
 import edu.mit.jwi.item.IWordID;
 import edu.mit.jwi.item.POS;
-import edu.mit.jwi.item.Pointer;
 import java.util.ArrayList;
 import java.util.List;
 import uag.bcc.ia.texto.TextoUtil;
 import uag.bcc.ia.wordnet.Dicionario;
 
+/**
+ * 
+ * @author Ramon Santos
+ * @author Wagner Souza
+ * @author Isabelle Ferreira
+ */
 public class Sinonimos {
 
-    private static Sinonimos instanceSinonimos = null;
-    
-    private Sinonimos(){
-    
-    }
-    
-    public static Sinonimos getInstanceSinonimos(){
-    
-        if(instanceSinonimos == null){
-            
-            instanceSinonimos = new Sinonimos();
-            
-        }
-        
-        return instanceSinonimos;
-    }
-    
-    private List<IWordID> getListaIWordID(String lemma) {
+	private static Sinonimos instanceSinonimos = null;
 
-        //index da palavra 'dog'
-        IIndexWord idxWord = Dicionario.getDicionario().getIndexWord(lemma, POS.NOUN);
+	private Sinonimos() {
 
-        //lista dos ids dos sentidos
-        List<IWordID> listaWordID = idxWord.getWordIDs();
+	}
 
-        return listaWordID;
-    }
+	public static Sinonimos getInstanceSinonimos() {
 
-    private List<IWord> getListaIWord(List<IWordID> listaIDs) {
+		if (instanceSinonimos == null) {
 
-        List<IWord> listaR = new ArrayList<IWord>();
+			instanceSinonimos = new Sinonimos();
 
-        for (int i = 0; i < listaIDs.size(); i++) {
+		}
 
-            IWord word = Dicionario.getDicionario().getWord(listaIDs.get(i));
+		return instanceSinonimos;
+	}
 
-            listaR.add(word);
+	private List<IWordID> getListaIWordID(String lemma) {
 
-        }
+		IIndexWord idxWord = Dicionario.getDicionario().getIndexWord(lemma,
+				POS.NOUN);
 
-        return listaR;
-    }
+		List<IWordID> listaWordID = idxWord.getWordIDs();
 
-    private List<ISynset> getListaISynset(List<IWord> listaWord) {
+		return listaWordID;
+	}
 
-        List<ISynset> listaR = new ArrayList<ISynset>();
+	private List<IWord> getListaIWord(List<IWordID> listaIDs) {
 
-        for (int i = 0; i < listaWord.size(); i++) {
+		List<IWord> listaR = new ArrayList<IWord>();
 
-            ISynset synset = listaWord.get(i).getSynset();
+		for (int i = 0; i < listaIDs.size(); i++) {
 
-            listaR.add(synset);
+			IWord word = Dicionario.getDicionario().getWord(listaIDs.get(i));
 
-        }
+			listaR.add(word);
 
-        return listaR;
-    }
+		}
 
-    private List<List<IWord>> getListaDeListaIWord(List<ISynset> listaSynset) {
+		return listaR;
+	}
 
-        List<IWord> lista;
+	private List<ISynset> getListaISynset(List<IWord> listaWord) {
 
-        List<List<IWord>> listaR = new ArrayList<List<IWord>>();
+		List<ISynset> listaR = new ArrayList<ISynset>();
 
-        for (int i = 0; i < listaSynset.size(); i++) {
+		for (int i = 0; i < listaWord.size(); i++) {
 
-            lista = listaSynset.get(i).getWords();
+			ISynset synset = listaWord.get(i).getSynset();
 
-            listaR.add(lista);
+			listaR.add(synset);
 
-        }
-        
-        return listaR;
+		}
 
-    }
+		return listaR;
+	}
 
-    public List<String> getListaSinonimos(String lemma) {
+	private List<List<IWord>> getListaDeListaIWord(List<ISynset> listaSynset) {
 
-        List<IWordID> l1 = getListaIWordID(lemma);
+		List<IWord> lista;
 
-        List<IWord> l2 = getListaIWord(l1);
+		List<List<IWord>> listaR = new ArrayList<List<IWord>>();
 
-        List<ISynset> l3 = getListaISynset(l2);
+		for (int i = 0; i < listaSynset.size(); i++) {
 
-        List<List<IWord>> l4 = getListaDeListaIWord(l3);
+			lista = listaSynset.get(i).getWords();
 
-        List<String> listaR = new ArrayList<String>();
-        
-        for (int i = 0; i < l4.size(); i++) {
-          
+			listaR.add(lista);
 
-            for (int j = 0; j < l4.get(i).size(); j++) {
+		}
 
-                listaR.add(l4.get(i).get(j).getLemma());
+		return listaR;
 
-            }
+	}
 
-        }
-        
-        listaR = TextoUtil.getInstanceTextoUtil().eliminarPalavrasRepetidas(listaR);
-        
-        return listaR;
+	public List<String> getListaSinonimos(String lemma) {
 
-    }
-   
-    public boolean areSinonimos(String lemma1, String lemma2) {
+		List<IWordID> l1 = getListaIWordID(lemma);
 
-        return false;
+		List<IWord> l2 = getListaIWord(l1);
 
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+		List<ISynset> l3 = getListaISynset(l2);
+
+		List<List<IWord>> l4 = getListaDeListaIWord(l3);
+
+		List<String> listaR = new ArrayList<String>();
+
+		for (int i = 0; i < l4.size(); i++) {
+
+			for (int j = 0; j < l4.get(i).size(); j++) {
+
+				listaR.add(l4.get(i).get(j).getLemma());
+
+			}
+
+		}
+
+		listaR = TextoUtil.getInstanceTextoUtil().eliminarPalavrasRepetidas(
+				listaR);
+
+		return listaR;
+
+	}
+
+	public boolean areSinonimos(String lemma1, String lemma2) {
+
+		return false;
+
+	}
 
 }
