@@ -24,7 +24,7 @@ public class FraseUtil {
 	}
 
 	/**
-	 * Recupera a instância deste classe
+	 * Recupera a instância desta classe.
 	 * 
 	 * @return Instância da classe
 	 */
@@ -38,13 +38,13 @@ public class FraseUtil {
 		return instanceFraseUtil;
 	}
 
-	/**
+	/*
 	 * Verifica qual o tipo de frase baseado no sinal(ponto) final.
 	 * 
-	 * @param frase
-	 *            Frase a ser analizada.
+	 * @param frase Frase a ser analizada.
+	 * 
 	 * @return Constante inteira representando o tipo de frase ou (-1) caso a
-	 *         frase em questão seja inválida.
+	 * frase em questão seja inválida.
 	 */
 	private int getTipoFrase(String frase) {
 

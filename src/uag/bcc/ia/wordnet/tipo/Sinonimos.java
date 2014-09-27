@@ -135,19 +135,4 @@ public class Sinonimos {
 
 	}
 
-	/**
-	 * Método que compara se duas palavras são sinônimos.
-	 * 
-	 * @param lemma1
-	 *            - primeira palavra
-	 * @param lemma2
-	 *            - segunda palavra
-	 * @return - true se as palavras forem sinônimos, false caso contrário.
-	 */
-	public boolean areSinonimos(String lemma1, String lemma2) {
-
-		return false;
-
-	}
-
 }
