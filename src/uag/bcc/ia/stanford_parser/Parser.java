@@ -25,7 +25,7 @@ import edu.stanford.nlp.trees.TypedDependency;
  * 
  * @author Arnaldo Sales
  * @author Eltton Tullyo
- *
+ * 
  */
 public class Parser {
 
@@ -49,9 +49,17 @@ public class Parser {
 	}
 
 	public LexicalizedParser getLp() {
+
 		return lp;
+
 	}
 
+	/**
+	 * 
+	 * @param texto
+	 *            - Frase
+	 * @return - Arvore de estrutura da frase.
+	 */
 	public Tree getParser(String texto) {
 
 		TokenizerFactory<CoreLabel> tokens = PTBTokenizer.factory(
@@ -63,6 +71,11 @@ public class Parser {
 		return parseTree;
 	}
 
+	/**
+	 * 
+	 * @param listaConceito
+	 * @return
+	 */
 	public List<String> getListaConceito(List<TaggedWord> listaConceito) {
 
 		List<String> listaR = new ArrayList<String>();
@@ -88,6 +101,11 @@ public class Parser {
 		return listaR;
 	}
 
+	/**
+	 * 
+	 * @param listaInstancia
+	 * @return
+	 */
 	public List<String> getListaInstancia(List<TaggedWord> listaInstancia) {
 
 		List<String> listaR = new ArrayList<String>();
@@ -111,6 +129,11 @@ public class Parser {
 		return listaR;
 	}
 
+	/**
+	 * 
+	 * @param listaPredicado
+	 * @return
+	 */
 	public List<String> getListaPredicado(List<TaggedWord> listaPredicado) {
 
 		List<String> listaR = new ArrayList<String>();
@@ -149,23 +172,21 @@ public class Parser {
 		return listaR;
 	}
 
-	public String Relacao(LexicalizedParser lp, String TextoPrincipal) {
-		
+	/**
+	 * F
+	 * 
+	 * @param lp
+	 * @param TextoPrincipal
+	 * @return
+	 */
+	public String relacao(String TextoPrincipal) {
+
 		String relacaoFinal = null;
-		// This option shows parsing a list of correctly tokenized words
+
 		String[] sent = { "this", "is", "a", "dummy", "test", "." };
 		List<CoreLabel> rawWords = Sentence.toCoreLabelList(sent);
 		Tree parse = lp.apply(rawWords);
-		// System.out.println("impressão de rawWord");
-
-		// System.out.println(rawWords.get(0));
-		// ArrayList ou_vai_ou_racha = parse.taggedYield();
-		// System.out.println(ou_vai_ou_racha.toString());
-		// parse.pennPrint();
-		// System.out.println("est� na demo API");
 	
-		
-
 		// This option shows loading and using an explicit tokenizer
 		String sent2 = TextoPrincipal;
 		TokenizerFactory<CoreLabel> tokenizerFactory = PTBTokenizer.factory(
@@ -173,19 +194,9 @@ public class Parser {
 		List<CoreLabel> rawWords2 = tokenizerFactory.getTokenizer(
 				new StringReader(sent2)).tokenize();
 		parse = lp.apply(rawWords2);
-		// System.out.println("saida do rawWords2");
-		// System.out.println(rawWords2.get(0));
-
-		// parse.pennPrint();
-		// System.out.println("impressão do nodo 2 de parse");
-		// System.out.println(parse.getNodeNumber(2));
-		// System.out.println("o constituents:");
-		// System.out.println( parse.constituents().size());
-		// System.out.println("o santo tagging:");
-		// System.out.println( parse.taggedLabeledYield()) ;
+		
 		ArrayList<TaggedWord> listafinal = parse.taggedYield();
-		// System.out.println("Impressão de minha morte");
-		// System.out.println(listafinal.get(0));
+		
 
 		ArrayList taggs = parse.taggedYield();
 		// System.out.println(taggs.toString());
@@ -197,7 +208,7 @@ public class Parser {
 		String convert = convert1.replace("]", " ");
 		// System.out.println("imprimindo convert");
 		// System.out.println(convert);
-		//char []powa=ou_vai_ou_racha.toString().toCharArray();
+		// char []powa=ou_vai_ou_racha.toString().toCharArray();
 		String[] powa = convert.split(",");
 		ArrayList<String> conceito = new ArrayList<>();
 		ArrayList<String> predicado = new ArrayList<>();
@@ -305,19 +316,19 @@ public class Parser {
 		System.out.println("---------------");
 		System.out.println("todos os conceitos");
 		for (int i = 0; i < conceito.size(); i++) {
-			 System.out.println(conceito.get(i));
+			System.out.println(conceito.get(i));
 
 		}
 		System.out.println("---------------");
 		System.out.println("Intancias");
 		for (int i = 0; i < instancia.size(); i++) {
-			 System.out.println(instancia.get(i));
+			System.out.println(instancia.get(i));
 
 		}
 		System.out.println("---------------");
 		System.out.println("Predicados");
 		for (int i = 0; i < predicado.size(); i++) {
-			 System.out.println(predicado.get(i));
+			System.out.println(predicado.get(i));
 
 		}
 
@@ -2226,9 +2237,10 @@ public class Parser {
 				String RelacaoSemCD = RelacaoSemAND.replace("/CD", "");
 				String RelacaoSemS = RelacaoSemCD.replace("sS", "s");
 				relacaoFinal = RelacaoSemS;
-				 System.out.println("impressão das relações final");
-				 System.out.println("-------------------------------------------------------");
-				 System.out.println(relacaoFinal);
+				System.out.println("impressão das relações final");
+				System.out
+						.println("-------------------------------------------------------");
+				System.out.println(relacaoFinal);
 
 			} catch (Exception e) {
 			}
@@ -2244,6 +2256,8 @@ public class Parser {
 	}
 
 	public void setLp(LexicalizedParser lp) {
+
 		this.lp = lp;
+
 	}
 }

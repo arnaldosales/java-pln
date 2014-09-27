@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe responsável por modelar, obter, indetificar, manipular e prover Texto.
+ * Classe responsável por modelar, obter, idetificar, manipular e prover Texto.
  * 
  * @author Ramon Santos
  * @author Arnaldo Sales
@@ -23,7 +23,7 @@ public class TextoUtil {
 	}
 
 	/**
-	 * Recupera a instância deste classe
+	 * Recupera a instância deste classe.
 	 * 
 	 * @return Instância da classe
 	 */
@@ -40,7 +40,7 @@ public class TextoUtil {
 	}
 
 	/**
-	 * Lê um arquivo de texto e retorna uma String com seu conteúdo
+	 * Lê um arquivo de texto e retorna uma String com seu conteúdo.
 	 * 
 	 * @param urlArquivo
 	 * @return Texto do arquivo
@@ -71,6 +71,13 @@ public class TextoUtil {
 		return stringResult;
 	}
 
+	/**
+	 * Método para quebrar uma texto em palavras.
+	 * 
+	 * @param texto
+	 *            - Texto de entrada.
+	 * @return - Lista contendo as palavras do texto de entrada.
+	 */
 	public List<String> quebrarTextoEmPalavras(String texto) {
 
 		String[] textoQuebrado = texto.split(" ");
@@ -120,6 +127,13 @@ public class TextoUtil {
 
 	}
 
+	/**
+	 * Método para eliminar palavras repetidas em uma lista de palavras.
+	 * 
+	 * @param listaPalavras
+	 *            - lista de entrada.
+	 * @return - lista sem repetição de palavras.
+	 */
 	public List<String> eliminarPalavrasRepetidas(List<String> listaPalavras) {
 
 		List<String> listaR = new ArrayList<String>();
@@ -136,6 +150,13 @@ public class TextoUtil {
 
 	}
 
+	/**
+	 * Método que transforma uma lista de palavras, em uma String.
+	 * 
+	 * @param listaPalavras
+	 *            - lista das palavras.
+	 * @return - String final.
+	 */
 	public String listaToString(List<String> listaPalavras) {
 
 		String textoR = "";
@@ -150,8 +171,16 @@ public class TextoUtil {
 		}
 
 		return textoR;
+
 	}
 
+	/**
+	 * Método que verifica se uma palavras começa com uma vogal.
+	 * 
+	 * @param palavra
+	 *            - palavra a ser verificada.
+	 * @return - true caso a palavra começe com vogal, false caso contrário.
+	 */
 	public boolean isPrimeiraLetraVogal(String palavra) {
 
 		char primeiraLetraPalavra = palavra.charAt(0);
@@ -159,10 +188,15 @@ public class TextoUtil {
 		if (primeiraLetraPalavra == 'a' || primeiraLetraPalavra == 'e'
 				|| primeiraLetraPalavra == 'i' || primeiraLetraPalavra == 'o'
 				|| primeiraLetraPalavra == 'u') {
+
 			return true;
+
 		} else {
+
 			return false;
+
 		}
+
 	}
 
 }
