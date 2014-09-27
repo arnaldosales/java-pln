@@ -13,7 +13,7 @@ import uag.bcc.ia.wordnet.Dicionario;
 /**
  * 
  * @author Ramon Santos
- * @author Wagner Souza
+ * @author Wagner de Lima
  * @author Isabelle Ferreira
  */
 public class Sinonimos {

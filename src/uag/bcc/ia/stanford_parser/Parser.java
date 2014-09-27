@@ -32,7 +32,7 @@ public class Parser {
 	private LexicalizedParser lp;
 	private static Parser instanceParser = null;
 
-	private Parser() {
+	public Parser() {
 
 		lp = LexicalizedParser.loadModel("res/englishPCFG.ser.gz");
 
@@ -197,7 +197,7 @@ public class Parser {
 		String convert = convert1.replace("]", " ");
 		// System.out.println("imprimindo convert");
 		// System.out.println(convert);
-		// char []powa=ou_vai_ou_racha.toString().toCharArray();
+		//char []powa=ou_vai_ou_racha.toString().toCharArray();
 		String[] powa = convert.split(",");
 		ArrayList<String> conceito = new ArrayList<>();
 		ArrayList<String> predicado = new ArrayList<>();
@@ -305,19 +305,19 @@ public class Parser {
 		System.out.println("---------------");
 		System.out.println("todos os conceitos");
 		for (int i = 0; i < conceito.size(); i++) {
-			// System.out.println(conceito.get(i));
+			 System.out.println(conceito.get(i));
 
 		}
 		System.out.println("---------------");
 		System.out.println("Intancias");
 		for (int i = 0; i < instancia.size(); i++) {
-			// System.out.println(instancia.get(i));
+			 System.out.println(instancia.get(i));
 
 		}
 		System.out.println("---------------");
 		System.out.println("Predicados");
 		for (int i = 0; i < predicado.size(); i++) {
-			// System.out.println(predicado.get(i));
+			 System.out.println(predicado.get(i));
 
 		}
 
@@ -2226,9 +2226,9 @@ public class Parser {
 				String RelacaoSemCD = RelacaoSemAND.replace("/CD", "");
 				String RelacaoSemS = RelacaoSemCD.replace("sS", "s");
 				relacaoFinal = RelacaoSemS;
-				// System.out.println("impressão das relações final");
-				// System.out.println("-------------------------------------------------------");
-				// System.out.println(relacaoFinal);
+				 System.out.println("impressão das relações final");
+				 System.out.println("-------------------------------------------------------");
+				 System.out.println(relacaoFinal);
 
 			} catch (Exception e) {
 			}
@@ -2241,5 +2241,9 @@ public class Parser {
 
 		}
 		return relacaoFinal;
+	}
+
+	public void setLp(LexicalizedParser lp) {
+		this.lp = lp;
 	}
 }
