@@ -8,6 +8,7 @@ import edu.mit.jwi.item.IWordID;
 import edu.mit.jwi.item.POS;
 
 /**
+ * Classe responsável por modelar uma palavra do dicionário.
  * 
  * @author Ramon Santos
  * @author Wagner Souza
@@ -15,104 +16,74 @@ import edu.mit.jwi.item.POS;
  */
 public class ClassePalavra {
 
-    /**
-     * Objeto que representa o índece de uma linha nos arquivos de base do
-     * WordNet
-     */
-    protected IIndexWord iIndexWord;
+	/**
+	 * Objeto que representa o índice de uma linha nos arquivos de base do
+	 * WordNet.
+	 */
+	protected IIndexWord iIndexWord;
 
-    /**
-     * Identificador único com o qual é possível recuperar uma determinada
-     * palavra na base do WordNet
-     */
-    protected IWordID iWordID;
+	/**
+	 * Identificador único com o qual é possível recuperar uma determinada
+	 * palavra na base do WordNet.
+	 */
+	protected IWordID iWordID;
 
-    /**
-     * Índice da palavra que é emparelhada com um synset
-     */
-    protected IWord iWord;
+	/**
+	 * Índice da palavra que é emparelhada com um synset.
+	 */
+	protected IWord iWord;
 
-    /**
-     * Representa um synset
-     */
-    protected ISynset iSynset;
+	/**
+	 * Representa um synset.
+	 */
+	protected ISynset iSynset;
 
-    /**
-     * Este método identifica se determinado lemma é um substantivo
-     *
-     * @param lemma - palavra a ser pesquisada
-     * @return true - se lemma for um substantivo e false caso contrario
-     */
-    public boolean isSubstantivo(String lemma) {
+	/**
+	 * Este método identifica se determinado lemma é um substantivo.
+	 * 
+	 * @param lemma
+	 *            - palavra a ser pesquisada.
+	 * @return true - se lemma for um substantivo e false caso contrario.
+	 */
+	public boolean isSubstantivo(String lemma) {
 
-        if (lemma.equals(",") || lemma.equals("!") || lemma.equals(";") || lemma.equals(":") || lemma.equals(".") || lemma.equals("?")) {
-            return false;
-        }
+		if (lemma.equals(",") || lemma.equals("!") || lemma.equals(";")
+				|| lemma.equals(":") || lemma.equals(".") || lemma.equals("?")) {
 
-        IIndexWord a = Dicionario.getDicionario().getIndexWord(lemma, POS.NOUN);
+			return false;
 
-        if (a == null) {
+		}
 
-            return false;
+		IIndexWord a = Dicionario.getDicionario().getIndexWord(lemma, POS.NOUN);
 
-        } else {
+		if (a == null) {
 
-            return true;
+			return false;
 
-        }
-    }
+		} else {
 
-    public boolean isVerbo(String lemma) {
+			return true;
 
-        return false;
-    }
+		}
 
-    public boolean isAdverbio(String lemma) {
+	}
 
-        return false;
-    }
+	protected String getDefinicaoGeral(String lemma) {
 
-    public boolean isAdjetivo(String lemma) {
+		IDictionary dicionario = Dicionario.getDicionario();
 
-        return false;
-    }
+		IIndexWord idWord;
 
-    protected String getDefinicaoGeral(String lemma, int op) {
+		idWord = dicionario.getIndexWord(lemma, POS.NOUN);
 
-        IDictionary dicionario = Dicionario.getDicionario();
+		IWordID idSignificado = idWord.getWordIDs().get(0);
 
-        IIndexWord idWord;
+		IWord word = dicionario.getWord(idSignificado);
 
-        switch (op) {
+		String definicao = word.getSynset().getGloss();
 
-            case 1:
-                idWord = dicionario.getIndexWord(lemma, POS.NOUN);
-                break;
+		return definicao;
 
-            case 2:
-                idWord = dicionario.getIndexWord(lemma, POS.ADJECTIVE);
-                break;
-
-            case 3:
-                idWord = dicionario.getIndexWord(lemma, POS.VERB);
-                break;
-
-            case 4:
-                idWord = dicionario.getIndexWord(lemma, POS.ADVERB);
-                break;
-
-            default:
-                return null;
-        }
-
-        IWordID idSignificado = idWord.getWordIDs().get(0);
-
-        IWord word = dicionario.getWord(idSignificado);
-
-        String definicao = word.getSynset().getGloss();
-
-        return definicao;
-
-    }
+	}
 
 }

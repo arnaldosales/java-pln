@@ -11,6 +11,7 @@ import uag.bcc.ia.texto.TextoUtil;
 import uag.bcc.ia.wordnet.Dicionario;
 
 /**
+ * Classe que modela Sinônimos de palavras do Dicionário.
  * 
  * @author Ramon Santos
  * @author Wagner de Lima
@@ -24,6 +25,11 @@ public class Sinonimos {
 
 	}
 
+	/**
+	 * Método responsável por prover a instância desta classe.
+	 * 
+	 * @return - Instância deste classe
+	 */
 	public static Sinonimos getInstanceSinonimos() {
 
 		if (instanceSinonimos == null) {
@@ -93,6 +99,13 @@ public class Sinonimos {
 
 	}
 
+	/**
+	 * Método que fornece uma lista de sinônimos, dado uma palavra.
+	 * 
+	 * @param lemma
+	 *            - palavra de entrada.
+	 * @return - lista de sinônimos da palavra de entrada.
+	 */
 	public List<String> getListaSinonimos(String lemma) {
 
 		List<IWordID> l1 = getListaIWordID(lemma);
@@ -122,6 +135,15 @@ public class Sinonimos {
 
 	}
 
+	/**
+	 * Método que compara se duas palavras são sinônimos.
+	 * 
+	 * @param lemma1
+	 *            - primeira palavra
+	 * @param lemma2
+	 *            - segunda palavra
+	 * @return - true se as palavras forem sinônimos, false caso contrário.
+	 */
 	public boolean areSinonimos(String lemma1, String lemma2) {
 
 		return false;

@@ -6,6 +6,7 @@ import java.io.File;
 import java.net.URL;
 
 /**
+ * Classe de acesso ao Dicionário Wordnet.
  * 
  * @author Ramon Santos
  * @author Wagner Souza
@@ -13,7 +14,7 @@ import java.net.URL;
  */
 public class Dicionario {
 
-	// Atributos referêntes ao endereço local do dicionário
+	// Atributos referêntes ao endereço local do dicionário.
 	private static String caminhoDicionarioLocal;
 	private static URL urlDicionarioLocal;
 
@@ -34,13 +35,14 @@ public class Dicionario {
 
 		}
 
-		// Dicionário WordNet local
+		// Dicionário WordNet local.
 		try {
+
 			caminhoDicionarioLocal = caminhoDicionarioLocal + File.separator;
 			urlDicionarioLocal = new URL("file", null, caminhoDicionarioLocal);
 
 			// Para acessar o dicionário de dados, tem-se que usar uma
-			// implementação da interface IDictionary
+			// implementação da interface IDictionary.
 			dicionario = new Dictionary(urlDicionarioLocal);
 			// Abre o dicionário de dados.
 			dicionario.open();
@@ -52,6 +54,11 @@ public class Dicionario {
 		}
 	}
 
+	/**
+	 * Método responsável por prover a instância do Dicionário.
+	 * 
+	 * @return - Instância do Dicionário.
+	 */
 	public static IDictionary getDicionario() {
 
 		if (dicionario == null) {
