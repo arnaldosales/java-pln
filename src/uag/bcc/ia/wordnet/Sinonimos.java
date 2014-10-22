@@ -1,14 +1,15 @@
-package uag.bcc.ia.wordnet.tipo;
+package uag.bcc.ia.wordnet;
 
 import edu.mit.jwi.item.IIndexWord;
 import edu.mit.jwi.item.ISynset;
 import edu.mit.jwi.item.IWord;
 import edu.mit.jwi.item.IWordID;
 import edu.mit.jwi.item.POS;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import uag.bcc.ia.texto.TextoUtil;
-import uag.bcc.ia.wordnet.Dicionario;
 
 /**
  * Classe que modela Sinônimos de palavras do Dicionário.
@@ -132,21 +133,6 @@ public class Sinonimos {
 				listaR);
 
 		return listaR;
-
-	}
-
-	/**
-	 * Método que compara se duas palavras são sinônimos.
-	 * 
-	 * @param lemma1
-	 *            - primeira palavra
-	 * @param lemma2
-	 *            - segunda palavra
-	 * @return - true se as palavras forem sinônimos, false caso contrário.
-	 */
-	public boolean areSinonimos(String lemma1, String lemma2) {
-
-		return false;
 
 	}
 

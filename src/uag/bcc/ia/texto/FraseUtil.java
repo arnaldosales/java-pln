@@ -1,7 +1,5 @@
 package uag.bcc.ia.texto;
 
-import uag.bcc.ia.exception.FraseMalFormuladaException;
-
 /**
  * Classe responsável por modelar, indetificar, manipular e prover frases.
  * 
@@ -101,7 +99,7 @@ public class FraseUtil {
 	 *         contrário
 	 * @throws FraseMalFormuladaException
 	 */
-	public boolean isPergunta(String frase) throws FraseMalFormuladaException {
+	public boolean isPergunta(String frase) throws Exception {
 
 		int tipoFrase = getTipoFrase(frase);
 
@@ -115,7 +113,7 @@ public class FraseUtil {
 
 		} else {
 
-			throw new FraseMalFormuladaException("Frase mal formulada!");
+			throw new Exception("Frase mal formulada!");
 		}
 
 	}
