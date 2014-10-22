@@ -1,14 +1,15 @@
-package uag.bcc.ia.wordnet.tipo;
+package uag.bcc.ia.wordnet;
 
 import edu.mit.jwi.item.IIndexWord;
 import edu.mit.jwi.item.ISynset;
 import edu.mit.jwi.item.IWord;
 import edu.mit.jwi.item.IWordID;
 import edu.mit.jwi.item.POS;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import uag.bcc.ia.texto.TextoUtil;
-import uag.bcc.ia.wordnet.Dicionario;
 
 /**
  * Classe que modela Sinônimos de palavras do Dicionário.

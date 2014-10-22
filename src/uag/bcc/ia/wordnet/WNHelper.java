@@ -2,15 +2,18 @@ package uag.bcc.ia.wordnet;
 
 import java.util.List;
 
-import uag.bcc.ia.wordnet.tipo.Sinonimos;
-
-public class WNUtil {
+/**
+ * 
+ * @author ramonsantos
+ *
+ */
+public class WNHelper {
 
 	private Sinonimos sin;
 	private ClassePalavra pal;
 	private Substantivo sub;
 	
-	public WNUtil(){
+	public WNHelper(){
 		
 		sin = Sinonimos.getInstanceSinonimos();
 		pal = new ClassePalavra();
