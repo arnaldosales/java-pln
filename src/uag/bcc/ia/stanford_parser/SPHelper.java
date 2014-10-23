@@ -11,154 +11,178 @@ import edu.stanford.nlp.process.CoreLabelTokenFactory;
 import edu.stanford.nlp.process.PTBTokenizer;
 import edu.stanford.nlp.process.TokenizerFactory;
 import edu.stanford.nlp.trees.Tree;
+import uag.bcc.ia.texto.TextoUtil;
 
 /**
- * 
+ *
  * @author Arnaldo Sales
  * @author Eltton Tullyo
+ * @author ramonsantos
  *
  */
 public class SPHelper {
 
-	private static LexicalizedParser lp;
-	private static SPHelper instanceParser = null;
+    private static LexicalizedParser lp;
+    private static SPHelper instanceParser = null;
 
-	public SPHelper() {
+    private SPHelper() {
 
-		lp = LexicalizedParser.loadModel("res/englishPCFG.ser.gz");
+        lp = LexicalizedParser.loadModel("res/englishPCFG.ser.gz");
 
-	}
+    }
 
-	public static SPHelper getInstanceParser() {
+    public static SPHelper getInstanceParser() {
 
-		if (instanceParser == null) {
+        if (instanceParser == null) {
 
-			instanceParser = new SPHelper();
-		}
+            instanceParser = new SPHelper();
+        }
 
-		return instanceParser;
-		
-	}
+        return instanceParser;
 
-	public LexicalizedParser getLp() {
-		
-		return lp;
-		
-	}
+    }
 
-	public Tree getTree(String texto) {
+    public LexicalizedParser getLp() {
 
-		//TreeSet
-		TokenizerFactory<CoreLabel> tokens = PTBTokenizer.factory(
-				new CoreLabelTokenFactory(), "");
-		List<CoreLabel> listaCorelabel = tokens.getTokenizer(
-				new StringReader(texto)).tokenize();
-		Tree parseTree = lp.apply(listaCorelabel);
+        return lp;
 
-		return parseTree;
-		
-	}
+    }
 
-	public List<String> getListaConceito(List<TaggedWord> listaConceito) {
+    public Tree getTree(String texto) {
 
-		List<String> listaR = new ArrayList<String>();
+        //TreeSet
+        TokenizerFactory<CoreLabel> tokens = PTBTokenizer.factory(
+            new CoreLabelTokenFactory(), "");
 
-		for (int i = 0; i < listaConceito.size(); i++) {
+        List<CoreLabel> listaCorelabel = tokens.getTokenizer(
+            new StringReader(texto)).tokenize();
 
-			if (listaConceito.get(i).toString().contains("NNS")) {
+        Tree parseTree = lp.apply(listaCorelabel);
 
-				listaR.add(listaConceito.get(i).toString().replace("/NNS", ""));
+        return parseTree;
 
-			} else if (listaConceito.get(i).toString().contains("NN")) {
+    }
 
-				listaR.add(listaConceito.get(i).toString().replace("/NN", ""));
+    public List<String> getListaConceito(String frase) {
 
-			} else if (listaConceito.get(i).toString().contains("RB")) {
+        List<TaggedWord> listaConceito = this.getListTaggerWord(frase);
 
-				listaR.add(listaConceito.get(i).toString().replace("/RB", ""));
-			} else {
+        List<String> listaR = new ArrayList<>();
 
-			}
-			
-		}
+        for (TaggedWord iLista : listaConceito) {
 
-		return listaR;
-		
-	}
+            if (iLista.toString().endsWith("NNS")) {
 
-	public List<String> getListaInstancia(List<TaggedWord> listaInstancia) {
+                listaR.add(iLista.toString().replace("/NNS", ""));
 
-		List<String> listaR = new ArrayList<String>();
+            } else if (iLista.toString().endsWith("NN")) {
 
-		for (int i = 0; i < listaInstancia.size(); i++) {
+                listaR.add(iLista.toString().replace("/NN", ""));
 
-			if (listaInstancia.get(i).toString().contains("NNP")) {
+            } else if (iLista.toString().endsWith("RB")) {
 
-				listaR.add(listaInstancia.get(i).toString().replace("/NNP", ""));
+                listaR.add(iLista.toString().replace("/RB", ""));
 
-			} else if (listaInstancia.get(i).toString().contains("NNPS")) {
+            } else {
 
-				listaR.add(listaInstancia.get(i).toString()
-						.replace("/NNPS", ""));
+            }
 
-			} else {
+        }
 
-			}
-			
-		}
+        return listaR;
 
-		return listaR;
-		
-	}
+    }
 
-	public List<String> getListaPredicado(List<TaggedWord> listaPredicado) {
+    public List<String> getListaInstancia(String frase) {
 
-		List<String> listaR = new ArrayList<String>();
+        List<TaggedWord> listaInstancia = this.getListTaggerWord(frase);
 
-		for (int i = 0; i < listaPredicado.size(); i++) {
+        List<String> listaR = new ArrayList<>();
 
-			if (listaPredicado.get(i).toString().contains("VB")) {
+        for (TaggedWord iLista : listaInstancia) {
 
-				listaR.add(listaPredicado.get(i).toString().replace("/VB", ""));
+            if (iLista.toString().endsWith("NNPS")) {
 
-			} else if (listaPredicado.get(i).toString().contains("VBD")) {
+                listaR.add(iLista.toString().replace("/NNPS", ""));
 
-				listaR.add(listaPredicado.get(i).toString().replace("/VBD", ""));
+            } else if (iLista.toString().endsWith("NNP")) {
 
-			} else if (listaPredicado.get(i).toString().contains("VBZ")) {
+                listaR.add(iLista.toString().replace("/NNP", ""));
 
-				listaR.add(listaPredicado.get(i).toString().replace("/VBZ", ""));
+            } else {
 
-			} else if (listaPredicado.get(i).toString().contains("VBN")) {
+            }
 
-				listaR.add(listaPredicado.get(i).toString().replace("VBN", ""));
+        }
 
-			} else if (listaPredicado.get(i).toString().contains("VBP")) {
+        return listaR;
 
-				listaR.add(listaPredicado.get(i).toString().replace("/VBP", ""));
+    }
 
-			} else if (listaPredicado.get(i).toString().contains("VBG")) {
+    public List<String> getListaPredicado(String frase) {
 
-				listaR.add(listaPredicado.get(i).toString().replace("/VBG", ""));
+        List<TaggedWord> listaPredicado = this.getListTaggerWord(frase);
 
-			} else {
+        List<String> listaR = new ArrayList<>();
 
-			}
-			
-		}
+        for (TaggedWord iLista : listaPredicado) {
 
-		return listaR;
-		
-	}
+            if (iLista.toString().endsWith("VB")) {
 
-	public List<TaggedWord> getListTaggerWord(String[] frase){
-		
-		String[] sent = frase;
-		List<CoreLabel> rawWords = Sentence.toCoreLabelList(sent);
-		Tree parse = lp.apply(rawWords);
-		
-		return  parse.taggedYield();
-		
-	}
-	
+                listaR.add(iLista.toString().replace("/VB", ""));
+
+            } else if (iLista.toString().endsWith("VBD")) {
+
+                listaR.add(iLista.toString().replace("/VBD", ""));
+
+            } else if (iLista.toString().endsWith("VBZ")) {
+
+                listaR.add(iLista.toString().replace("/VBZ", ""));
+
+            } else if (iLista.toString().endsWith("VBN")) {
+
+                listaR.add(iLista.toString().replace("VBN", ""));
+
+            } else if (iLista.toString().endsWith("VBP")) {
+
+                listaR.add(iLista.toString().replace("/VBP", ""));
+
+            } else if (iLista.toString().endsWith("VBG")) {
+
+                listaR.add(iLista.toString().replace("/VBG", ""));
+
+            } else {
+
+            }
+
+        }
+
+        return listaR;
+
+    }
+
+    public List<String> getListaRelacao(String frase) {
+
+        List<String> listaR = new ArrayList<>();
+
+        return listaR;
+
+    }
+
+    public List<TaggedWord> getListTaggerWord(String frase) {
+
+        //Retirar pontuação
+        String l = TextoUtil.getInstanceTextoUtil().retirarPontuacao(frase);
+      //  String textLimpo = TextoUtil.getInstanceTextoUtil().listaToString(l);
+System.out.println(l);
+        String[] sent = l.split(" ");
+
+        List<CoreLabel> rawWords = Sentence.toCoreLabelList(sent);
+
+        Tree parse = lp.apply(rawWords);
+
+        return parse.taggedYield();
+
+    }
+
 }

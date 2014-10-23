@@ -126,6 +126,26 @@ public class TextoUtil {
 		return listaR;
 
 	}
+    
+    public String retirarPontuacao(String t ) {
+
+        String r = t;
+       
+      
+        
+       // r.replaceAll("!", "");
+    
+       r.replaceAll(",", " ");
+       
+        System.out.println(">"+r);
+    //    r.replaceAll(";", "");
+    //    r.replaceAll(":", "");
+     //   r.replaceAll(".", "");
+     //   r.replaceAll("?", "");
+                
+		return r;
+
+	}
 
 	/**
 	 * Método para eliminar palavras repetidas em uma lista de palavras.
