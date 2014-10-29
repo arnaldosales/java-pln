@@ -6,7 +6,9 @@
 package aplicacao;
 
 import java.util.List;
-import javax.swing.JOptionPane;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import uag.bcc.ia.owl.OWLHelper;
 import uag.bcc.ia.stanford_parser.SPHelper;
 import uag.bcc.ia.wordnet.WNHelper;
 
@@ -40,7 +42,6 @@ public class TelaAplicacao extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         campoFrase = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -50,8 +51,6 @@ public class TelaAplicacao extends javax.swing.JFrame {
         listaInstancias = new javax.swing.JList();
         jScrollPane8 = new javax.swing.JScrollPane();
         listaConceitos = new javax.swing.JList();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        listaRelacao = new javax.swing.JList();
         jScrollPane10 = new javax.swing.JScrollPane();
         listaPredicato = new javax.swing.JList();
         jSeparator1 = new javax.swing.JSeparator();
@@ -77,9 +76,6 @@ public class TelaAplicacao extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jLabel6.setText("Definição");
-
-        jLabel7.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
-        jLabel7.setText("Relações");
 
         campoFrase.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         campoFrase.addActionListener(new java.awt.event.ActionListener() {
@@ -127,13 +123,6 @@ public class TelaAplicacao extends javax.swing.JFrame {
         });
         jScrollPane8.setViewportView(listaConceitos);
 
-        listaRelacao.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane9.setViewportView(listaRelacao);
-
         listaPredicato.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "" };
             public int getSize() { return strings.length; }
@@ -171,8 +160,7 @@ public class TelaAplicacao extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
+                                .addGap(292, 292, 292)
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -199,9 +187,7 @@ public class TelaAplicacao extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -240,16 +226,13 @@ public class TelaAplicacao extends javax.swing.JFrame {
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel7)))
+                                .addComponent(jLabel3))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel4)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                             .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                             .addComponent(jScrollPane1)))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -321,21 +304,37 @@ public class TelaAplicacao extends javax.swing.JFrame {
     private void parserEvent() {
 
         frase = campoFrase.getText();
-
+        OWLHelper h = OWLHelper.getOWLHelper();
+        
         List<String> lConceitos = SPHelper.getInstanceParser().getListaConceito(frase);
         listaConceitos.setListData(lConceitos.toArray());
-
+        for (String p : lConceitos) {
+            
+            h.addClasse(p);
+            
+        }
+        
         List<String> lInstancias = SPHelper.getInstanceParser().getListaInstancia(frase);
         listaInstancias.setListData(lInstancias.toArray());
+        for (String i : lInstancias) {
+            
+            h.addInstancia(i);
+            
+        }
 
         List<String> lPredicatos = SPHelper.getInstanceParser().getListaPredicado(frase);
         listaPredicato.setListData(lPredicatos.toArray());
 
-        List<String> lRelacoes = SPHelper.getInstanceParser().getListaRelacao(frase);
-        listaRelacao.setListData(lRelacoes.toArray());
+        //List<String> lRelacoes = SPHelper.getInstanceParser().getListaRelacao(frase);
+        //listaRelacao.setListData(lRelacoes.toArray());
         
         String textoTag = SPHelper.getInstanceParser().getTree(frase).toString();
         textoTags.setText(textoTag);
+        
+        //Arquivo OWL
+        
+     
+        h.gerarArquivo("saida");
         
     }
 
@@ -362,7 +361,6 @@ public class TelaAplicacao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -371,12 +369,10 @@ public class TelaAplicacao extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JList listaConceitos;
     private javax.swing.JList listaInstancias;
     private javax.swing.JList listaPredicato;
-    private javax.swing.JList listaRelacao;
     private javax.swing.JList listaSinonimos;
     private javax.swing.JTextArea textDefinicao;
     private javax.swing.JTextArea textoTags;
