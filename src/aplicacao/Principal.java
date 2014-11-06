@@ -19,11 +19,15 @@ public class Principal {
     
     public static void main(String[] args){
         
-        String frase = "Ramon is a dog, he was constipated last week";
+        String frase = "Ramon is a dog and Bolinha is a cat and Baleia is a dog";
+        String frase2 = "Bolinha is a dog , he was constipated last week";
         
       //  List<TaggedWord> listTag = SPHelper.getInstanceParser().getListTaggerWord(frase);
         
       //  System.out.println(listTag.toString());
          System.out.println(TextoUtil.getInstanceTextoUtil().retirarPontuacao(frase));
+         
+         SPHelper.getInstanceParser().gerarRelacaoOWL(frase);
+       //   SPHelper.getInstanceParser().getListaRelacao(frase2);
     }
 }

@@ -11,6 +11,8 @@ import edu.stanford.nlp.process.CoreLabelTokenFactory;
 import edu.stanford.nlp.process.PTBTokenizer;
 import edu.stanford.nlp.process.TokenizerFactory;
 import edu.stanford.nlp.trees.Tree;
+import org.semanticweb.owlapi.model.OWLClass;
+import uag.bcc.ia.owl.OWLHelper;
 import uag.bcc.ia.texto.TextoUtil;
 
 /**
@@ -161,21 +163,49 @@ public class SPHelper {
 
     }
 
-    public List<String> getListaRelacao(String frase) {
+    public void gerarRelacaoOWL(String frase) {
 
-        List<String> listaR = new ArrayList<>();
+        List<TaggedWord> lTags = this.getListTaggerWord(frase);
 
-        return listaR;
+        //Bolinha is a cat.
+        for (int i = 0; i < lTags.size(); i++) {
+
+            try {
+                //Bolinha is a cat.
+                if (lTags.get(i).tag().equals("NNP") && lTags.get(i + 1).tag().equals("VBZ") && lTags.get(i + 2).tag().equals("DT") && lTags.get(i + 3).tag().equals("NN")) {
+
+                    OWLClass classe = OWLHelper.getOWLHelper().addClasse(lTags.get(i + 3).value());
+                    OWLHelper.getOWLHelper().addInstancia(lTags.get(i).value(), classe);
+
+                }
+
+                //Bolinha and Baleia are dog
+                if (lTags.get(i).tag().equals("NNP")
+                    && lTags.get(i + 1).tag().equals("CC")
+                    && lTags.get(i + 2).tag().equals("NNP") 
+                    && lTags.get(i + 3).tag().equals("VBP") 
+                    && (lTags.get(i + 4).tag().equals("NNS") || lTags.get(i + 4).tag().equals("NN"))) {
+
+                    OWLClass classe = OWLHelper.getOWLHelper().addClasse(lTags.get(i + 4).value());
+                    OWLHelper.getOWLHelper().addInstancia(lTags.get(i).value(), classe);
+                    OWLHelper.getOWLHelper().addInstancia(lTags.get(i + 2).value(), classe);
+
+                }
+
+            } catch (Exception e) {
+
+            }
+
+        }
 
     }
 
     public List<TaggedWord> getListTaggerWord(String frase) {
 
-        //Retirar pontuação
-        String l = TextoUtil.getInstanceTextoUtil().retirarPontuacao(frase);
-      //  String textLimpo = TextoUtil.getInstanceTextoUtil().listaToString(l);
-System.out.println(l);
-        String[] sent = l.split(" ");
+        // Retirar pontuação
+        // String l = TextoUtil.getInstanceTextoUtil().retirarPontuacao(frase);
+        // String textLimpo = TextoUtil.getInstanceTextoUtil().listaToString(l);
+        String[] sent = frase.split(" ");
 
         List<CoreLabel> rawWords = Sentence.toCoreLabelList(sent);
 

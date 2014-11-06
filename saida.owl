@@ -21,9 +21,36 @@
     
 
 
-    <!-- http://e-solutions.com.br#cat -->
+    <!-- http://e-solutions.com.br#dogs -->
 
-    <owl:Class rdf:about="http://e-solutions.com.br#cat"/>
+    <owl:Class rdf:about="http://e-solutions.com.br#dogs"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://e-solutions.com.br#Bolinha -->
+
+    <owl:NamedIndividual rdf:about="http://e-solutions.com.br#Bolinha">
+        <rdf:type rdf:resource="http://e-solutions.com.br#dogs"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://e-solutions.com.br#Ramon -->
+
+    <owl:NamedIndividual rdf:about="http://e-solutions.com.br#Ramon">
+        <rdf:type rdf:resource="http://e-solutions.com.br#dogs"/>
+    </owl:NamedIndividual>
 </rdf:RDF>
 
 

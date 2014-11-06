@@ -302,39 +302,44 @@ public class TelaAplicacao extends javax.swing.JFrame {
     }
 
     private void parserEvent() {
-
-        frase = campoFrase.getText();
-        OWLHelper h = OWLHelper.getOWLHelper();
         
+        //Recupera a frase digitada
+        frase = campoFrase.getText();
+        
+        //Gera relações 
+        SPHelper.getInstanceParser().gerarRelacaoOWL(frase);
+        
+        //Exibe os Conceitos
         List<String> lConceitos = SPHelper.getInstanceParser().getListaConceito(frase);
         listaConceitos.setListData(lConceitos.toArray());
+      
+        //Adiciona os conceitos no arquivo .owl
         for (String p : lConceitos) {
             
-            h.addClasse(p);
+            OWLHelper.getOWLHelper().addClasse(p);
             
         }
         
+        //Exibe as Instâncias
         List<String> lInstancias = SPHelper.getInstanceParser().getListaInstancia(frase);
         listaInstancias.setListData(lInstancias.toArray());
+        
         for (String i : lInstancias) {
-            
-            h.addInstancia(i);
+          
+            //Tratar Instancias sem classes definidas
+            OWLHelper.getOWLHelper().addInstancia(i);
             
         }
 
         List<String> lPredicatos = SPHelper.getInstanceParser().getListaPredicado(frase);
         listaPredicato.setListData(lPredicatos.toArray());
-
-        //List<String> lRelacoes = SPHelper.getInstanceParser().getListaRelacao(frase);
-        //listaRelacao.setListData(lRelacoes.toArray());
         
-        String textoTag = SPHelper.getInstanceParser().getTree(frase).toString();
+        //Exibe as tags da frase
+        String textoTag = SPHelper.getInstanceParser().getListTaggerWord(frase).toString();
         textoTags.setText(textoTag);
         
-        //Arquivo OWL
-        
-     
-        h.gerarArquivo("saida");
+        //Gera arquivo OWL        
+        OWLHelper.getOWLHelper().gerarArquivo("saida");
         
     }
 

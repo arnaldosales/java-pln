@@ -7,6 +7,7 @@ package uag.bcc.ia.owl;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
@@ -36,6 +37,7 @@ public class OWLHelper {
     private final String URI = "http://e-solutions.com.br";
     private final OWLClass classeGenerica;
     private static OWLHelper inst = null;
+    public HashMap<String, OWLIndividual> instancias;
 
     public static OWLHelper getOWLHelper() {
 
@@ -56,7 +58,7 @@ public class OWLHelper {
         
     }
 
-    public OWLHelper() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    private OWLHelper() throws OWLOntologyCreationException, OWLOntologyStorageException {
 
         manager = OWLManager.createOWLOntologyManager();
         ontologyIRI = IRI.create(URI);
@@ -64,8 +66,9 @@ public class OWLHelper {
         factory = manager.getOWLDataFactory();
         prefixManager = new DefaultPrefixManager(null, null, ontologyIRI + "#");
 
-        classeGenerica = factory.getOWLClass("Classe", prefixManager);
-
+        classeGenerica = factory.getOWLClass("Thing", prefixManager);
+        instancias = new HashMap<String, OWLIndividual>();
+        
     }
 
     public OWLClass addClasse(String conceito) {
@@ -83,19 +86,23 @@ public class OWLHelper {
         OWLIndividual i = factory.getOWLNamedIndividual(":" + instancia, prefixManager);
         OWLClassAssertionAxiom assertionAxiom = factory.getOWLClassAssertionAxiom(classe, i);
         manager.addAxiom(ontology, assertionAxiom);
-
+        instancias.put(instancia, i);
+        
         return i;
 
     }
     
     public OWLIndividual addInstancia(String instancia) {
 
+        if(!instancias.containsKey(instancia)){
         OWLIndividual i = factory.getOWLNamedIndividual(":" + instancia, prefixManager);
         OWLClassAssertionAxiom assertionAxiom = factory.getOWLClassAssertionAxiom(classeGenerica, i);
         manager.addAxiom(ontology, assertionAxiom);
-
+        
         return i;
-
+        }else{
+            return null;
+        }
     }
 
     public void gerarArquivo(String nomeArquivo) {
