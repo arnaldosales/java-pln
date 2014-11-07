@@ -10,9 +10,9 @@ import java.util.List;
 public class WNHelper {
 
     private static WNHelper instance = null;
-    private Sinonimos sin;
-    private ClassePalavra pal;
-    private Substantivo sub;
+    private final Sinonimos sin;
+    private final ClassePalavra pal;
+    private final Substantivo sub;
 
     public WNHelper() {
 
@@ -33,7 +33,6 @@ public class WNHelper {
         return instance;
         
     }
-    
 
     /**
      * Método que fornece uma lista de sinônimos, dado uma palavra.

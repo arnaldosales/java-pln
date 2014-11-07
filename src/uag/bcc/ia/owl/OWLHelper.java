@@ -37,7 +37,7 @@ public class OWLHelper {
     private final String URI = "http://e-solutions.com.br";
     private final OWLClass classeGenerica;
     private static OWLHelper inst = null;
-    public HashMap<String, OWLIndividual> instancias;
+    public HashMap<String, OWLIndividual> instanciasL;
 
     public static OWLHelper getOWLHelper() {
 
@@ -55,7 +55,7 @@ public class OWLHelper {
         }
 
         return inst;
-        
+
     }
 
     private OWLHelper() throws OWLOntologyCreationException, OWLOntologyStorageException {
@@ -67,8 +67,8 @@ public class OWLHelper {
         prefixManager = new DefaultPrefixManager(null, null, ontologyIRI + "#");
 
         classeGenerica = factory.getOWLClass("Thing", prefixManager);
-        instancias = new HashMap<String, OWLIndividual>();
-        
+        instanciasL = new HashMap<>();
+
     }
 
     public OWLClass addClasse(String conceito) {
@@ -78,7 +78,7 @@ public class OWLHelper {
         manager.addAxiom(ontology, declaration);
 
         return classe;
-        
+
     }
 
     public OWLIndividual addInstancia(String instancia, OWLClass classe) {
@@ -86,35 +86,44 @@ public class OWLHelper {
         OWLIndividual i = factory.getOWLNamedIndividual(":" + instancia, prefixManager);
         OWLClassAssertionAxiom assertionAxiom = factory.getOWLClassAssertionAxiom(classe, i);
         manager.addAxiom(ontology, assertionAxiom);
-        instancias.put(instancia, i);
-        
+        instanciasL.put(instancia, i);
+
         return i;
 
     }
-    
+
     public OWLIndividual addInstancia(String instancia) {
 
-        if(!instancias.containsKey(instancia)){
-        OWLIndividual i = factory.getOWLNamedIndividual(":" + instancia, prefixManager);
-        OWLClassAssertionAxiom assertionAxiom = factory.getOWLClassAssertionAxiom(classeGenerica, i);
-        manager.addAxiom(ontology, assertionAxiom);
-        
-        return i;
-        }else{
+        if (!instanciasL.containsKey(instancia)) {
+            OWLIndividual i = factory.getOWLNamedIndividual(":" + instancia, prefixManager);
+            OWLClassAssertionAxiom assertionAxiom = factory.getOWLClassAssertionAxiom(classeGenerica, i);
+            manager.addAxiom(ontology, assertionAxiom);
+
+            return i;
+            
+        } else {
+            
             return null;
+            
         }
+        
     }
 
+    public boolean isInstancia(String instanciaN){
+        
+        return instanciasL.containsKey(instanciaN);
+    }
+    
     public void gerarArquivo(String nomeArquivo) {
 
         try {
-            
+
             manager.saveOntology(ontology, new StreamDocumentTarget(System.out));
 
             manager.saveOntology(ontology, new FileOutputStream(nomeArquivo + ".owl"));
 
         } catch (FileNotFoundException e) {
-            
+
         } catch (OWLOntologyStorageException e1) {
 
         }

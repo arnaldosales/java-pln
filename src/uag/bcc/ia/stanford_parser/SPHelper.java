@@ -13,7 +13,6 @@ import edu.stanford.nlp.process.TokenizerFactory;
 import edu.stanford.nlp.trees.Tree;
 import org.semanticweb.owlapi.model.OWLClass;
 import uag.bcc.ia.owl.OWLHelper;
-import uag.bcc.ia.texto.TextoUtil;
 
 /**
  *
@@ -163,33 +162,119 @@ public class SPHelper {
 
     }
 
-    public void gerarRelacaoOWL(String frase) {
+    public List<Relacao> gerarRelacaoOWL(String frase) {
+
+        List<Relacao> listaR = new ArrayList<>();
 
         List<TaggedWord> lTags = this.getListTaggerWord(frase);
 
-        //Bolinha is a cat.
         for (int i = 0; i < lTags.size(); i++) {
 
             try {
-                //Bolinha is a cat.
-                if (lTags.get(i).tag().equals("NNP") && lTags.get(i + 1).tag().equals("VBZ") && lTags.get(i + 2).tag().equals("DT") && lTags.get(i + 3).tag().equals("NN")) {
+
+                //Bolinha is a cat
+                if ((lTags.size() >= (i + 3))
+                    && lTags.get(i).tag().equals("NNP")
+                    && lTags.get(i + 1).tag().equals("VBZ")
+                    && lTags.get(i + 2).tag().equals("DT")
+                    && lTags.get(i + 3).tag().equals("NN")) {
 
                     OWLClass classe = OWLHelper.getOWLHelper().addClasse(lTags.get(i + 3).value());
                     OWLHelper.getOWLHelper().addInstancia(lTags.get(i).value(), classe);
 
+                    listaR.add(new Relacao("\"" + lTags.get(i).value() + "\"", "is", lTags.get(i + 3).value()));
+
                 }
 
-                //Bolinha and Baleia are dog
-                if (lTags.get(i).tag().equals("NNP")
+                //Bolinha and Baleia are dogs
+                if (lTags.size() >= (i + 4)
+                    && (lTags.get(i).tag().equals("NNP")
                     && lTags.get(i + 1).tag().equals("CC")
-                    && lTags.get(i + 2).tag().equals("NNP") 
-                    && lTags.get(i + 3).tag().equals("VBP") 
-                    && (lTags.get(i + 4).tag().equals("NNS") || lTags.get(i + 4).tag().equals("NN"))) {
+                    && lTags.get(i + 2).tag().equals("NNP")
+                    && lTags.get(i + 3).tag().equals("VBP")
+                    && (lTags.get(i + 4).tag().equals("NNS") || lTags.get(i + 4).tag().equals("NN")))) {
 
                     OWLClass classe = OWLHelper.getOWLHelper().addClasse(lTags.get(i + 4).value());
                     OWLHelper.getOWLHelper().addInstancia(lTags.get(i).value(), classe);
                     OWLHelper.getOWLHelper().addInstancia(lTags.get(i + 2).value(), classe);
 
+                    listaR.add(new Relacao("\"" + lTags.get(i).value() + "\"", "is", lTags.get(i + 4).value()));
+                    listaR.add(new Relacao("\"" + lTags.get(i + 2).value() + "\"", "is", lTags.get(i + 4).value()));
+
+                }
+
+                //Bolinha eat meat
+                if ((lTags.size() >= (i + 3))
+                    && lTags.get(i).tag().equals("NNP")
+                    && lTags.get(i + 1).tag().equals("VBP")
+                    && lTags.get(i + 2).tag().equals("NN")) {
+
+                    OWLClass classe = OWLHelper.getOWLHelper().addClasse(lTags.get(i + 2).value());
+
+                    if (!OWLHelper.getOWLHelper().isInstancia(lTags.get(i).value())) {
+
+                        OWLHelper.getOWLHelper().addInstancia(lTags.get(i).value());
+
+                    }
+
+                    listaR.add(new Relacao("\"" + lTags.get(i).value() + "\"", lTags.get(i + 1).value(), lTags.get(i + 2).value()));
+
+                }
+
+                //Bolinha is a dog and eat meat
+                if (lTags.size() >= (i + 6)
+                    && (lTags.get(i).tag().equals("NNP")
+                    && lTags.get(i + 1).tag().equals("VBZ")
+                    && lTags.get(i + 2).tag().equals("DT")
+                    && lTags.get(i + 3).tag().equals("NN")
+                    && lTags.get(i + 4).tag().equals("CC")
+                    && lTags.get(i + 5).tag().equals("VBP")
+                    && lTags.get(i + 6).tag().equals("NN"))) {
+
+                    Relacao r1 = new Relacao("\"" + lTags.get(i).value() + "\"", lTags.get(i + 5).value(), lTags.get(i + 6).value());
+                    Relacao r2 = new Relacao(lTags.get(i + 3).value(), lTags.get(i + 5).value(), lTags.get(i + 6).value());
+
+                    OWLHelper.getOWLHelper().addClasse(lTags.get(i + 6).value());
+                    listaR.add(r1);
+                    listaR.add(r2);
+
+                }
+
+                //white shark eat people
+                if (lTags.size() >= (i + 3)
+                    && (lTags.get(i).tag().equals("JJ")
+                    && lTags.get(i + 1).tag().equals("NN")
+                    && lTags.get(i + 2).tag().equals("VBP")
+                    && lTags.get(i + 3).tag().equals("NNS"))) {
+
+                    OWLHelper.getOWLHelper().addClasse(lTags.get(i).value() + " " + lTags.get(i + 1).value());
+                    OWLHelper.getOWLHelper().addClasse(lTags.get(i + 1).value());
+                    OWLHelper.getOWLHelper().addClasse(lTags.get(i + 3).value());
+
+                    Relacao r1 = new Relacao(lTags.get(i).value() + " " + lTags.get(i + 1).value(), lTags.get(i + 2).value(), lTags.get(i + 3).value());
+                    Relacao r2 = new Relacao(lTags.get(i + 1).value(), lTags.get(i + 2).value(), lTags.get(i + 3).value());
+
+                    listaR.add(r1);
+                    listaR.add(r2);
+
+                }
+                
+                //cow eats meat and drinking water
+                if (lTags.size() >= (i + 5)
+                    && (lTags.get(i).tag().equals("NN")
+                    && lTags.get(i + 1).tag().equals("VBZ")
+                    && lTags.get(i + 2).tag().equals("NN")
+                    && lTags.get(i + 3).tag().equals("CC")
+                    && lTags.get(i + 4).tag().equals("VBZ")
+                    && lTags.get(i + 5).tag().equals("NN"))) {
+                
+                
+                    Relacao r1 = new Relacao(lTags.get(i).value(), lTags.get(i + 1).value(), lTags.get(i + 2).value());
+                    Relacao r2 = new Relacao(lTags.get(i).value(), lTags.get(i + 4).value(), lTags.get(i + 5).value());
+
+                    listaR.add(r1);
+                    listaR.add(r2);
+                    
                 }
 
             } catch (Exception e) {
@@ -197,6 +282,8 @@ public class SPHelper {
             }
 
         }
+
+        return listaR;
 
     }
 
