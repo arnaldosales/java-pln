@@ -6,3 +6,7 @@
 *.ear
 /bin
 /lib
+/nbproject/private/
+
+.classpath
+.project

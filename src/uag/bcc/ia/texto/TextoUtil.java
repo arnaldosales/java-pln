@@ -23,7 +23,7 @@ public class TextoUtil {
 	}
 
 	/**
-	 * Recupera a instância deste classe
+	 * Recupera a instância deste classe.
 	 * 
 	 * @return Instância da classe
 	 */
@@ -124,6 +124,26 @@ public class TextoUtil {
 		}
 
 		return listaR;
+
+	}
+    
+    public String retirarPontuacao(String t ) {
+
+        String r = t;
+       
+      
+        
+       // r.replaceAll("!", "");
+    
+       r.replaceAll(",", " ");
+       
+        System.out.println(">"+r);
+    //    r.replaceAll(";", "");
+    //    r.replaceAll(":", "");
+     //   r.replaceAll(".", "");
+     //   r.replaceAll("?", "");
+                
+		return r;
 
 	}
 
