@@ -4,9 +4,17 @@
 *.jar
 *.war
 *.ear
+
 /bin
 /lib
+<<<<<<< HEAD
 /nbproject/private/
 
 .classpath
 .project
+=======
+/nbproject
+/build
+
+build.xml
+>>>>>>> refs/remotes/origin/master
