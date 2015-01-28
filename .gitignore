@@ -1,20 +1,22 @@
 *.class
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
 /bin
-/lib
-<<<<<<< HEAD
-/nbproject/private/
+
 
 .classpath
 .project
-=======
+build.xml
+
+/nbproject/private/
 /nbproject
 /build
+/.settings
+/hierarquia
+/verbos
 
-build.xml
->>>>>>> refs/remotes/origin/master
+
+

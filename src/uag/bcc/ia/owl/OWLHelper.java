@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
@@ -92,6 +93,21 @@ public class OWLHelper {
 
     }
 
+	public OWLSubClassOfAxiom addSubClasse(String instancia, OWLClass classe){
+		
+		OWLClass sub = factory.getOWLClass(":" + instancia, prefixManager);
+	
+		
+		OWLSubClassOfAxiom subC = factory.getOWLSubClassOfAxiom(sub, classe);
+		manager.addAxiom(ontology, subC);
+	
+			
+			
+	return  subC;
+		
+	}
+	
+	
     public OWLIndividual addInstancia(String instancia) {
 
         if (!instanciasL.containsKey(instancia)) {

@@ -3,7 +3,6 @@ package uag.bcc.ia.wordnet;
 import edu.mit.jwi.Dictionary;
 import edu.mit.jwi.IDictionary;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -48,8 +47,10 @@ public class Dicionario {
 			// Abre o dicionário de dados.
 			dicionario.open();
 
-		} catch (IOException e) {
-            
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
 		}
 	}
 

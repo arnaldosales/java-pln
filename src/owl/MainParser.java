@@ -5,7 +5,6 @@ import uag.bcc.ia.stanford_parser.SPHelper;
 public class MainParser {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		//Parser.getInstanceParser().Relacao("Tom's cat ");
 		

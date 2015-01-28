@@ -54,24 +54,30 @@ public class Sinonimos {
 
 	private List<IWord> getListaIWord(List<IWordID> listaIDs) {
 
-		List<IWord> listaR = new ArrayList<>();
+		List<IWord> listaR = new ArrayList<IWord>();
 
-        for (IWordID listaID : listaIDs) {
-            IWord word = Dicionario.getDicionario().getWord(listaID);
-            listaR.add(word);
-        }
+		for (int i = 0; i < listaIDs.size(); i++) {
+
+			IWord word = Dicionario.getDicionario().getWord(listaIDs.get(i));
+
+			listaR.add(word);
+
+		}
 
 		return listaR;
 	}
 
 	private List<ISynset> getListaISynset(List<IWord> listaWord) {
 
-		List<ISynset> listaR = new ArrayList<>();
+		List<ISynset> listaR = new ArrayList<ISynset>();
 
-        for (IWord listaWord1 : listaWord) {
-            ISynset synset = listaWord1.getSynset();
-            listaR.add(synset);
-        }
+		for (int i = 0; i < listaWord.size(); i++) {
+
+			ISynset synset = listaWord.get(i).getSynset();
+
+			listaR.add(synset);
+
+		}
 
 		return listaR;
 	}
@@ -80,7 +86,7 @@ public class Sinonimos {
 
 		List<IWord> lista;
 
-		List<List<IWord>> listaR = new ArrayList<>();
+		List<List<IWord>> listaR = new ArrayList<List<IWord>>();
 
 		for (int i = 0; i < listaSynset.size(); i++) {
 
@@ -111,7 +117,7 @@ public class Sinonimos {
 
 		List<List<IWord>> l4 = getListaDeListaIWord(l3);
 
-		List<String> listaR = new ArrayList<>();
+		List<String> listaR = new ArrayList<String>();
 
 		for (int i = 0; i < l4.size(); i++) {
 

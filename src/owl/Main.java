@@ -13,7 +13,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public class Main {
 
 	public static void main(String[] args) throws MalformedURLException, URISyntaxException, OWLOntologyCreationException {
-		// TODO Auto-generated method stub
 
 		URL url = new URL("http://localhost/ia/novo.owl");
 		IRI iri = IRI.create(url);
