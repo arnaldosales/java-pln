@@ -1,24 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package aplicacao;
 
 import java.util.List;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import uag.bcc.ia.owl.OWLHelper;
 import uag.bcc.ia.stanford_parser.SPHelper;
 import uag.bcc.ia.wordnet.WNHelper;
 
-/**
- *
- * @author ramonsantos
- */
 public class TelaAplicacao extends javax.swing.JFrame {
 
-    private static String frase;
+	private static final long serialVersionUID = 1L;
+	private static String frase;
     private static String palavra;
 
     /**

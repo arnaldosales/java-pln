@@ -16,11 +16,11 @@ import org.semanticweb.owlapi.model.OWLClass;
 import uag.bcc.ia.owl.OWLHelper;
 
 /**
- *
+ * 
  * @author Arnaldo Sales
  * @author Eltton Tullyo
  * @author ramonsantos
- *
+ * 
  */
 public class SPHelper {
 
@@ -55,10 +55,10 @@ public class SPHelper {
 
 		// TreeSet
 		TokenizerFactory<CoreLabel> tokens = PTBTokenizer.factory(
-			new CoreLabelTokenFactory(), "");
+				new CoreLabelTokenFactory(), "");
 
 		List<CoreLabel> listaCorelabel = tokens.getTokenizer(
-			new StringReader(texto)).tokenize();
+				new StringReader(texto)).tokenize();
 
 		Tree parseTree = lp.apply(listaCorelabel);
 
@@ -176,147 +176,147 @@ public class SPHelper {
 
 				// Bolinha is a cat
 				if ((lTags.size() >= (i + 3))
-					&& lTags.get(i).tag().equals("NNP")
-					&& lTags.get(i + 1).tag().equals("VBZ")
-					&& lTags.get(i + 2).tag().equals("DT")
-					&& lTags.get(i + 3).tag().equals("NN")) {
+						&& lTags.get(i).tag().equals("NNP")
+						&& lTags.get(i + 1).tag().equals("VBZ")
+						&& lTags.get(i + 2).tag().equals("DT")
+						&& lTags.get(i + 3).tag().equals("NN")) {
 
 					OWLClass classe = OWLHelper.getOWLHelper().addClasse(
-						lTags.get(i + 3).value());
+							lTags.get(i + 3).value());
 					OWLHelper.getOWLHelper().addInstancia(lTags.get(i).value(),
-						classe);
+							classe);
 
 					listaR.add(new Relacao("\"" + lTags.get(i).value() + "\"",
-						"is", lTags.get(i + 3).value()));
+							"is", lTags.get(i + 3).value()));
 
 				}
 
 				// shark is a fish
 				if ((lTags.size() >= (i + 3))
-					&& lTags.get(i).tag().equals("NN")
-					&& lTags.get(i + 1).tag().equals("VBZ")
-					&& lTags.get(i + 2).tag().equals("DT")
-					&& lTags.get(i + 3).tag().equals("NN")) {
+						&& lTags.get(i).tag().equals("NN")
+						&& lTags.get(i + 1).tag().equals("VBZ")
+						&& lTags.get(i + 2).tag().equals("DT")
+						&& lTags.get(i + 3).tag().equals("NN")) {
 
 					OWLHelper.getOWLHelper().addClasse(lTags.get(i).value());
 					OWLHelper.getOWLHelper()
-						.addClasse(lTags.get(i + 3).value());
+							.addClasse(lTags.get(i + 3).value());
 
 					listaR.add(new Relacao("\"" + lTags.get(i).value() + "\"",
-						"is", lTags.get(i + 3).value()));
+							"is", lTags.get(i + 3).value()));
 
 				}
 
 				// shark is a fish and eats meat
 				if ((lTags.size() >= (i + 3))
-					&& lTags.get(i).tag().equals("NN")
-					&& lTags.get(i + 1).tag().equals("VBZ")
-					&& lTags.get(i + 2).tag().equals("DT")
-					&& lTags.get(i + 3).tag().equals("NN")
-					&& lTags.get(i + 4).tag().equals("CC")
-					&& lTags.get(i + 5).tag().equals("VBZ")
-					&& lTags.get(i + 6).tag().equals("NN")) {
+						&& lTags.get(i).tag().equals("NN")
+						&& lTags.get(i + 1).tag().equals("VBZ")
+						&& lTags.get(i + 2).tag().equals("DT")
+						&& lTags.get(i + 3).tag().equals("NN")
+						&& lTags.get(i + 4).tag().equals("CC")
+						&& lTags.get(i + 5).tag().equals("VBZ")
+						&& lTags.get(i + 6).tag().equals("NN")) {
 
 					OWLHelper.getOWLHelper().addClasse(lTags.get(i).value());
 					OWLHelper.getOWLHelper()
-						.addClasse(lTags.get(i + 3).value());
+							.addClasse(lTags.get(i + 3).value());
 					OWLHelper.getOWLHelper()
-						.addClasse(lTags.get(i + 6).value());
+							.addClasse(lTags.get(i + 6).value());
 
 					listaR.add(new Relacao("\"" + lTags.get(i).value() + "\"",
-						"is", lTags.get(i + 3).value()));
+							"is", lTags.get(i + 3).value()));
 					listaR.add(new Relacao("\"" + lTags.get(i).value(), lTags
-						.get(i + 5).value(), lTags.get(i + 6).value()));
+							.get(i + 5).value(), lTags.get(i + 6).value()));
 
 				}
 
 				// Bolinha and Baleia are dogs
 				if (lTags.size() >= (i + 4)
-					&& (lTags.get(i).tag().equals("NNP")
-					&& lTags.get(i + 1).tag().equals("CC")
-					&& lTags.get(i + 2).tag().equals("NNP")
-					&& lTags.get(i + 3).tag().equals("VBP") && (lTags
-					.get(i + 4).tag().equals("NNS") || lTags
-					.get(i + 4).tag().equals("NN")))) {
+						&& (lTags.get(i).tag().equals("NNP")
+								&& lTags.get(i + 1).tag().equals("CC")
+								&& lTags.get(i + 2).tag().equals("NNP")
+								&& lTags.get(i + 3).tag().equals("VBP") && (lTags
+								.get(i + 4).tag().equals("NNS") || lTags
+								.get(i + 4).tag().equals("NN")))) {
 
 					OWLClass classe = OWLHelper.getOWLHelper().addClasse(
-						lTags.get(i + 4).value());
+							lTags.get(i + 4).value());
 					OWLHelper.getOWLHelper().addInstancia(lTags.get(i).value(),
-						classe);
+							classe);
 					OWLHelper.getOWLHelper().addInstancia(
-						lTags.get(i + 2).value(), classe);
+							lTags.get(i + 2).value(), classe);
 
 					listaR.add(new Relacao("\"" + lTags.get(i).value() + "\"",
-						"is", lTags.get(i + 4).value()));
+							"is", lTags.get(i + 4).value()));
 					listaR.add(new Relacao("\"" + lTags.get(i + 2).value()
-						+ "\"", "is", lTags.get(i + 4).value()));
+							+ "\"", "is", lTags.get(i + 4).value()));
 
 				}
 
 				// Bolinha eat meat
 				if ((lTags.size() >= (i + 3))
-					&& lTags.get(i).tag().equals("NNP")
-					&& lTags.get(i + 1).tag().equals("VBP")
-					&& lTags.get(i + 2).tag().equals("NN")) {
+						&& lTags.get(i).tag().equals("NNP")
+						&& lTags.get(i + 1).tag().equals("VBP")
+						&& lTags.get(i + 2).tag().equals("NN")) {
 
 					OWLHelper.getOWLHelper()
-						.addClasse(lTags.get(i + 2).value());
+							.addClasse(lTags.get(i + 2).value());
 
 					if (!OWLHelper.getOWLHelper().isInstancia(
-						lTags.get(i).value())) {
+							lTags.get(i).value())) {
 
 						OWLHelper.getOWLHelper().addInstancia(
-							lTags.get(i).value());
+								lTags.get(i).value());
 
 					}
 
 					listaR.add(new Relacao("\"" + lTags.get(i).value() + "\"",
-						lTags.get(i + 1).value(), lTags.get(i + 2).value()));
+							lTags.get(i + 1).value(), lTags.get(i + 2).value()));
 
 				}
 
 				// shark eats meat
 				if ((lTags.size() >= (i + 3))
-					&& lTags.get(i).tag().equals("NN")
-					&& lTags.get(i + 1).tag().equals("VBZ")
-					&& lTags.get(i + 2).tag().equals("NN")) {
+						&& lTags.get(i).tag().equals("NN")
+						&& lTags.get(i + 1).tag().equals("VBZ")
+						&& lTags.get(i + 2).tag().equals("NN")) {
 
 					OWLHelper.getOWLHelper().addClasse(lTags.get(i).value());
 					OWLHelper.getOWLHelper()
-						.addClasse(lTags.get(i + 2).value());
+							.addClasse(lTags.get(i + 2).value());
 
 					if (!OWLHelper.getOWLHelper().isInstancia(
-						lTags.get(i).value())) {
+							lTags.get(i).value())) {
 
 						OWLHelper.getOWLHelper().addInstancia(
-							lTags.get(i).value());
+								lTags.get(i).value());
 
 					}
 
 					listaR.add(new Relacao(lTags.get(i).value(), lTags.get(
-						i + 1).value(), lTags.get(i + 2).value()));
+							i + 1).value(), lTags.get(i + 2).value()));
 
 				}
 
 				// Bolinha is a dog and eat meat
 				if (lTags.size() >= (i + 6)
-					&& (lTags.get(i).tag().equals("NNP")
-					&& lTags.get(i + 1).tag().equals("VBZ")
-					&& lTags.get(i + 2).tag().equals("DT")
-					&& lTags.get(i + 3).tag().equals("NN")
-					&& lTags.get(i + 4).tag().equals("CC")
-					&& lTags.get(i + 5).tag().equals("VBP") && lTags
-					.get(i + 6).tag().equals("NN"))) {
+						&& (lTags.get(i).tag().equals("NNP")
+								&& lTags.get(i + 1).tag().equals("VBZ")
+								&& lTags.get(i + 2).tag().equals("DT")
+								&& lTags.get(i + 3).tag().equals("NN")
+								&& lTags.get(i + 4).tag().equals("CC")
+								&& lTags.get(i + 5).tag().equals("VBP") && lTags
+								.get(i + 6).tag().equals("NN"))) {
 
 					Relacao r1 = new Relacao(
-						"\"" + lTags.get(i).value() + "\"", lTags
-						.get(i + 5).value(), lTags.get(i + 6)
-						.value());
+							"\"" + lTags.get(i).value() + "\"", lTags
+									.get(i + 5).value(), lTags.get(i + 6)
+									.value());
 					Relacao r2 = new Relacao(lTags.get(i + 3).value(), lTags
-						.get(i + 5).value(), lTags.get(i + 6).value());
+							.get(i + 5).value(), lTags.get(i + 6).value());
 
 					OWLHelper.getOWLHelper()
-						.addClasse(lTags.get(i + 6).value());
+							.addClasse(lTags.get(i + 6).value());
 					listaR.add(r1);
 					listaR.add(r2);
 
@@ -324,24 +324,24 @@ public class SPHelper {
 
 				// white shark eat people
 				if (lTags.size() >= (i + 3)
-					&& (lTags.get(i).tag().equals("JJ")
-					&& lTags.get(i + 1).tag().equals("NN")
-					&& lTags.get(i + 2).tag().equals("VBP") && lTags
-					.get(i + 3).tag().equals("NNS"))) {
+						&& (lTags.get(i).tag().equals("JJ")
+								&& lTags.get(i + 1).tag().equals("NN")
+								&& lTags.get(i + 2).tag().equals("VBP") && lTags
+								.get(i + 3).tag().equals("NNS"))) {
 
 					OWLHelper.getOWLHelper().addClasse(
-						lTags.get(i).value() + " "
-						+ lTags.get(i + 1).value());
+							lTags.get(i).value() + " "
+									+ lTags.get(i + 1).value());
 					OWLHelper.getOWLHelper()
-						.addClasse(lTags.get(i + 1).value());
+							.addClasse(lTags.get(i + 1).value());
 					OWLHelper.getOWLHelper()
-						.addClasse(lTags.get(i + 3).value());
+							.addClasse(lTags.get(i + 3).value());
 
 					Relacao r1 = new Relacao(lTags.get(i).value() + " "
-						+ lTags.get(i + 1).value(), lTags.get(i + 2)
-						.value(), lTags.get(i + 3).value());
+							+ lTags.get(i + 1).value(), lTags.get(i + 2)
+							.value(), lTags.get(i + 3).value());
 					Relacao r2 = new Relacao(lTags.get(i + 1).value(), lTags
-						.get(i + 2).value(), lTags.get(i + 3).value());
+							.get(i + 2).value(), lTags.get(i + 3).value());
 
 					listaR.add(r1);
 					listaR.add(r2);
@@ -350,17 +350,17 @@ public class SPHelper {
 
 				// cow eats meat and drinking water
 				if (lTags.size() >= (i + 5)
-					&& (lTags.get(i).tag().equals("NN")
-					&& lTags.get(i + 1).tag().equals("VBZ")
-					&& lTags.get(i + 2).tag().equals("NN")
-					&& lTags.get(i + 3).tag().equals("CC")
-					&& lTags.get(i + 4).tag().equals("VBZ") && lTags
-					.get(i + 5).tag().equals("NN"))) {
+						&& (lTags.get(i).tag().equals("NN")
+								&& lTags.get(i + 1).tag().equals("VBZ")
+								&& lTags.get(i + 2).tag().equals("NN")
+								&& lTags.get(i + 3).tag().equals("CC")
+								&& lTags.get(i + 4).tag().equals("VBZ") && lTags
+								.get(i + 5).tag().equals("NN"))) {
 
 					Relacao r1 = new Relacao(lTags.get(i).value(), lTags.get(
-						i + 1).value(), lTags.get(i + 2).value());
+							i + 1).value(), lTags.get(i + 2).value());
 					Relacao r2 = new Relacao(lTags.get(i).value(), lTags.get(
-						i + 4).value(), lTags.get(i + 5).value());
+							i + 4).value(), lTags.get(i + 5).value());
 
 					listaR.add(r1);
 					listaR.add(r2);
@@ -379,9 +379,6 @@ public class SPHelper {
 
 	public List<TaggedWord> getListTaggerWord(String frase) {
 
-		// Retirar pontuação
-		// String l = TextoUtil.getInstanceTextoUtil().retirarPontuacao(frase);
-		// String textLimpo = TextoUtil.getInstanceTextoUtil().listaToString(l);
 		String[] sent = frase.split(" ");
 
 		List<CoreLabel> rawWords = Sentence.toCoreLabelList(sent);
@@ -401,74 +398,95 @@ public class SPHelper {
 
 		for (int i = 0; i < lTags.size(); i++) {
 
-			//H(1)
-			if (lTags.size() >= (i + 2)
-				&& this.isNN(lTags.get(i))
-				&& lTags.get(i + 1).tag().equals("VBZ")
-				&& this.isNN(lTags.get(i + 2))) {
+			// H(1)
+			if (lTags.size() >= (i + 2) && this.isNN(lTags.get(i))
+					&& lTags.get(i + 1).tag().equals("VBZ")
+					&& this.isNN(lTags.get(i + 2))) {
 
-				OWLClass classe = OWLHelper.getOWLHelper().addClasse(lTags.get(i + 2).value());
-				OWLHelper.getOWLHelper().addSubClasse(lTags.get(i).value(), classe);
-
-			}
-
-			if (lTags.size() >= (i + 3)
-				&& this.isNN(lTags.get(i))
-				&& lTags.get(i + 1).tag().equals("VBZ")
-				&& lTags.get(i + 2).tag().equals("DT")
-				&& this.isNN(lTags.get(i + 3))) {
-
-				OWLClass classe = OWLHelper.getOWLHelper().addClasse(lTags.get(i + 3).value());
-				OWLHelper.getOWLHelper().addSubClasse(lTags.get(i).value(), classe);
+				OWLClass classe = OWLHelper.getOWLHelper().addClasse(
+						lTags.get(i + 2).value());
+				OWLHelper.getOWLHelper().addSubClasse(lTags.get(i).value(),
+						classe);
 
 			}
 
-			//H(2)
-			if (lTags.size() >= (i + 3)
-				&& this.isNN(lTags.get(i))
-				&& lTags.get(i + 1).tag().equals("VBP")
-				&& lTags.get(i + 2).tag().equals("DT")
-				&& this.isNN(lTags.get(i + 3))) {
+			if (lTags.size() >= (i + 3) && this.isNN(lTags.get(i))
+					&& lTags.get(i + 1).tag().equals("VBZ")
+					&& lTags.get(i + 2).tag().equals("DT")
+					&& this.isNN(lTags.get(i + 3))) {
 
-				OWLClass classe = OWLHelper.getOWLHelper().addClasse(lTags.get(i + 3).value());
-				OWLHelper.getOWLHelper().addSubClasse(lTags.get(i).value(), classe);
+				OWLClass classe = OWLHelper.getOWLHelper().addClasse(
+						lTags.get(i + 3).value());
+				OWLHelper.getOWLHelper().addSubClasse(lTags.get(i).value(),
+						classe);
+
+			}
+
+			// H(2)
+			if (lTags.size() >= (i + 3) && this.isNN(lTags.get(i))
+					&& lTags.get(i + 1).tag().equals("VBP")
+					&& lTags.get(i + 2).tag().equals("DT")
+					&& this.isNN(lTags.get(i + 3))) {
+
+				OWLClass classe = OWLHelper.getOWLHelper().addClasse(
+						lTags.get(i + 3).value());
+				OWLHelper.getOWLHelper().addSubClasse(lTags.get(i).value(),
+						classe);
 
 				int j = i + 4;
 
-				if (lTags.size() >= j && this.isNN(lTags.get(j))) {
+				if (lTags.size() >= j + 1) {
 
-					List<TaggedWord> lLoop = new ArrayList<>();
+					if (this.isNN(lTags.get(j))
+							|| lTags.get(j).tag().equals("CC")) {
+						List<TaggedWord> lLoop = new ArrayList<>();
 
-					while (lTags.size() >= j && (this.isNN(lTags.get(j)) || lTags.get(j).tag().equals("CC"))) {
+						while (lTags.size() >= j
+								&& (this.isNN(lTags.get(j)) || lTags.get(j)
+										.tag().equals("CC"))) {
 
-						if (this.isNN(lTags.get(j))) {
+							if (this.isNN(lTags.get(j))) {
 
-							lLoop.add(lTags.get(j));
-							j++;
+								lLoop.add(lTags.get(j));
+								j++;
 
-						} else if (lTags.get(j).tag().equals("CC")) {
+							} else if (lTags.get(j).tag().equals("CC")) {
 
-							if (this.isNN(lTags.get(j + 1))) {
-								lLoop.add(lTags.get(j + 1));
-								//--
-								for (int k = 0; k < lLoop.size(); k++) {
+								if (this.isNN(lTags.get(j + 1))) {
 
-									OWLClass c = OWLHelper.getOWLHelper().addClasse(lLoop.get(k).value());
-									OWLHelper.getOWLHelper().addSubClasse(lTags.get(i).value(), c);
+									lLoop.add(lTags.get(j + 1));
+
+									for (int k = 0; k < lLoop.size(); k++) {
+
+										OWLClass c = OWLHelper
+												.getOWLHelper()
+												.addClasse(lLoop.get(k).value());
+										OWLHelper.getOWLHelper().addSubClasse(
+												lTags.get(i).value(), c);
+
+									}
+
+									j = lTags.size() + 2;
+
+								} else {
+
+									j = lTags.size() + 2;
 
 								}
-							} else {
 
-								j = lTags.size() + 2;
 							}
 
 						}
 
 					}
+
 				}
+
 			}
 
-		}//OWLHelper.getOWLHelper().gerarArquivo("exit");
+			// TODO - H(3)
+
+		}
 
 	}
 

@@ -1,19 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package aplicacao;
 
-/**
- *
- * @author ramonsantos
- */
+import org.apache.log4j.PropertyConfigurator;
+import uag.bcc.ia.owl.OWLHelper;
+import uag.bcc.ia.stanford_parser.SPHelper;
+
 public class TelaTeste extends javax.swing.JFrame {
 
-	/**
-	 * Creates new form TelaTeste
-	 */
 	public TelaTeste() {
 		initComponents();
 	}
@@ -67,8 +59,8 @@ public class TelaTeste extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-		//TODO - escrever em um arquivo 
-		//TODO - abrir arquivo
+        SPHelper.getInstanceParser().escreverHierarquia(campoFrase.getText());
+	OWLHelper.getOWLHelper().gerarArquivo("saida");
 		
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -102,6 +94,7 @@ public class TelaTeste extends javax.swing.JFrame {
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
+                                PropertyConfigurator.configure("conf/log4j.properties");
 				new TelaTeste().setVisible(true);
 			}
 		});
